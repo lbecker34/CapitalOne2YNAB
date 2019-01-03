@@ -20,7 +20,7 @@ var scriptProperties = PropertiesService.getScriptProperties();
 function main() {
 	var transactions = [];
 	// Set a variable to our "CapitalOne" label in Gmail
-	var threads = GmailApp.search("label:CapitalOne newer_than:3m is:unread");
+	var threads = GmailApp.search("label:CapitalOne newer_than:10m is:unread");
 	for (var i in threads) {
 		var messages = threads[i].getMessages();
 		for (var j in messages) {
@@ -34,7 +34,7 @@ function main() {
 			// Get date of transaction
 			var regExpDate = /we're notifying you that on (...+), at/; // regex to find date
 			var message_date = regExpDate.exec(emailBody);
-			if (message_date_m) {
+			if (message_date) {
 				var newDate = Date.parse(message_date[1]);
 				transaction_date = formatDate(newDate);
 				console.info("Email message date: " + transaction_date);
@@ -43,7 +43,7 @@ function main() {
 			// Get vendor name
 			var regExpVendor = /, at (...+),/; // regex to find transaction vendor name
 			var message_vendor = regExpVendor.exec(emailBody);
-			if (message_vendor_m) {
+			if (message_vendor) {
 				transaction_vendor = message_vendor[1];
 				console.info("Email message vendor: " + transaction_vendor);
 			}
@@ -51,8 +51,8 @@ function main() {
 			// Get transaction amount
 			var regExpAmount = /purchase in the amount of \$(\S+) was/; // regex to find transaction amount
 			var message_amount = regExpAmount.exec(emailBody);
-			if (message_amount_m) {
-				transaction_amount = ConvertToMiliUnits(message_amount);
+			if (message_amount) {
+				transaction_amount = ConvertToMiliUnits(message_amount[1]);           
 			}
 
 			var transaction = {
