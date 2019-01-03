@@ -20,10 +20,12 @@ var scriptProperties = PropertiesService.getScriptProperties();
 function main() {
 	var transactions = [];
 	// Set a variable to our "CapitalOne" label in Gmail
-	var threads = GmailApp.search("label:CapitalOne newer_than:10m is:unread");
+	var threads = GmailApp.search("label:CapitalOne newer_than:13m is:unread");
 	for (var i in threads) {
 		var messages = threads[i].getMessages();
 		for (var j in messages) {
+          if(messages[j].isUnread()){
+            
 			var emailBody = messages[j].getPlainBody(); // Get email body in plaintext, no HTML
 			console.info("Email body: " + emailBody);
 
@@ -65,6 +67,7 @@ function main() {
 			};
 			transactions.push(transaction);
 			messages[j].markRead(); //mark emails as read so they don't get picked up next run.
+          }
 		}
 	}
 	if (transactions.length > 0) {
