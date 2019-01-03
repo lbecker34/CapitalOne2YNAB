@@ -25,7 +25,7 @@ function main() {
 		var messages = threads[i].getMessages();
 		for (var j in messages) {
 			var emailBody = messages[j].getPlainBody(); // Get email body in plaintext, no HTML
-			Logger.log("Email body: " + emailBody);
+			console.info("Email body: " + emailBody);
 
 			var transaction_date = "",
 				transaction_vendor = "",
@@ -37,7 +37,7 @@ function main() {
 			if (message_date_m) {
 				var newDate = Date.parse(message_date[1]);
 				transaction_date = formatDate(newDate);
-				Logger.log("Email message date: " + transaction_date);
+				console.info("Email message date: " + transaction_date);
 			}
 
 			// Get vendor name
@@ -45,7 +45,7 @@ function main() {
 			var message_vendor = regExpVendor.exec(emailBody);
 			if (message_vendor_m) {
 				transaction_vendor = message_vendor[1];
-				Logger.log("Email message vendor: " + transaction_vendor);
+				console.info("Email message vendor: " + transaction_vendor);
 			}
 
 			// Get transaction amount
@@ -96,7 +96,7 @@ function ConvertToMiliUnits(value) {
 		message_amount = message_amount.replace(".", "");
 		message_amount = "-" + message_amount;
 	}
-	Logger.log("Email message amount: " + message_amount);
+	console.info("Email message amount: " + message_amount);
 	return message_amount;
 }
 
