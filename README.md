@@ -6,9 +6,9 @@ you must set three script properties by going to File/Project Properties/Script 
 in the App Script editor. 
 
 The 3 properties are:
-YNAB-ACCOUNT-ID
-YNAB-ACCESS-TOKEN
-YNAB-BUDGET-ID
+* YNAB-ACCOUNT-ID
+* YNAB-ACCESS-TOKEN
+* YNAB-BUDGET-ID
 
 After the properties are set, set a trigger for this function to run every minute. You can adjust the
 trigger as you please, but I wanted mine to be as real time as possible. If you make it run less often,
